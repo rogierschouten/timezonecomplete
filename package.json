@@ -50,7 +50,7 @@
     "all": "npm run clean && npm run build && npm run test && npm run karma && npm run doc"
   },
   "dependencies": {
-    "tzdata": "1.0.46"
+    "tzdata": "1.0.49"
   },
   "devDependencies": {
     "@types/chai": "^4.2.12",
