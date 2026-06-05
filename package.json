@@ -12,23 +12,22 @@
     "date arithmetic",
     "date math"
   ],
-  "homepage": "https://github.com/spiritit/timezonecomplete",
-  "bugs": "https://github.com/spiritit/timezonecomplete/issues",
+  "homepage": "https://github.com/rogierschouten/timezonecomplete",
+  "bugs": "https://github.com/rogierschouten/timezonecomplete/issues",
   "license": "MIT",
   "author": {
-    "name": "Software Development",
-    "email": "Software-Development@SpiritIT.com",
-    "url": "http://www.spiritit.com"
+    "name": "Rogier Schouten",
+    "email": "github@workingcode.nl"
   },
   "contributors": [
     {
-      "name": "Rogier Schouten",
-      "email": "github@workingcode.ninja"
+      "name": "Bogdan Hoancea",
+      "email": "bogdanh123@gmail.com"
     }
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/rogierschouten/tzdata-generate.git"
+    "url": "https://github.com/rogierschouten/timezonecomplete.git"
   },
   "main": "./dist/lib/index.js",
   "typings": "./dist/lib/index.d.ts",
