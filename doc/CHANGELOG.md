@@ -1,6 +1,11 @@
 
 # Changelog
 
+## 5.15.1 (2026-06-05)
+
+* Update tzdata
+* Autofix some npm vulnerabilities
+
 ## 5.15.0 (2025-08-25)
 
 * Issue #106: Upgrade tzdata
