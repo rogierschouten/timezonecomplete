@@ -1915,7 +1915,11 @@ class CachedRuleTransitions {
 		// find minimum applicable final rule after the prev transition
 		let found: RuleInfo | undefined;
 		let foundEffective: TimeStruct | undefined;
-		for (let year = prev.transition.at.year; year < prev.transition.at.year + 2; ++year) {
+		// the final rules can start years after the last other transition (Egypt: 2014 and 2023),
+		// so do not search before the first year that a final rule applies to
+		const firstFinalYear = Math.min(...this._finalRulesByEffective.map((rule: RuleInfo): number => rule.from));
+		const startYear = Math.max(prev.transition.at.year, firstFinalYear);
+		for (let year = startYear; year < startYear + 2; ++year) {
 			for (const rule of this._finalRulesByEffective) {
 				if (rule.applicable(year)) {
 					const effective = rule.effectiveDate(year);
@@ -2109,7 +2113,10 @@ class CachedZoneTransitions {
 			}
 		}
 		let found: ZoneTransition | undefined;
-		for (let y = iterator.transition.atUtc.year; y < iterator.transition.atUtc.year + 2; ++y) {
+		// see CachedRuleTransitions.findNext(): do not search before the first year that a final rule applies to
+		const firstFinalYear = Math.min(...this._finalRules.map((rule: RuleInfo): number => rule.from));
+		const startYear = Math.max(iterator.transition.atUtc.year, firstFinalYear);
+		for (let y = startYear; y < startYear + 2; ++y) {
 			for (const ruleInfo of this._finalRules) {
 				if (ruleInfo.applicable(y)) {
 					const transition: ZoneTransition = {

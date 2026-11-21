@@ -478,6 +478,11 @@ describe("TzDatabase", (): void => {
 	});
 
 	describe("dstOffsetForRule()", (): void => {
+		it("should apply 'max' rules that start years after the last other rule", (): void => {
+			// Egypt: rules up to 2014, then "2023 max"
+			expect(TzDatabase.instance().dstOffsetForRule(
+				"Egypt", TimeStruct.fromComponents(2024, 7, 1, 12), Duration.hours(2)).hours()).to.equal(1);
+		});
 		it("should work for rules that use UTC in AT column", (): void => {
 			expect(TzDatabase.instance().dstOffsetForRule(
 				"EU", (TimeStruct.fromComponents(2014, 3, 30, 0, 59, 59, 999)), Duration.hours(1)).hours()).to.equal(0);
@@ -512,6 +517,17 @@ describe("TzDatabase", (): void => {
 		it("should work for zones that have a fixed DST offset", (): void => {
 			expect(TzDatabase.instance().totalOffset(
 				"Pacific/Apia", new TimeStruct(1325203100000)).hours()).to.equal(-10);
+		});
+		it("should apply 'max' rules that start years after the last other rule", (): void => {
+			// Egypt: rules up to 2014, then "2023 max"; Haiti: rules up to 2015, then "2017 max"
+			expect(TzDatabase.instance().totalOffset(
+				"Africa/Cairo", TimeStruct.fromComponents(2024, 7, 1, 12)).hours()).to.equal(3);
+			expect(TzDatabase.instance().totalOffset(
+				"Africa/Cairo", TimeStruct.fromComponents(2024, 12, 1, 12)).hours()).to.equal(2);
+			expect(TzDatabase.instance().totalOffset(
+				"America/Port-au-Prince", TimeStruct.fromComponents(2018, 7, 1, 12)).hours()).to.equal(-4);
+			expect(TzDatabase.instance().totalOffset(
+				"America/Port-au-Prince", TimeStruct.fromComponents(2018, 12, 1, 12)).hours()).to.equal(-5);
 		});
 		// todors more info
 	});
